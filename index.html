@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="lib/jquery-1.6.4.js"></script>
+        <script src="lib/jquery.mobile-1.1.0.js"></script>
+        <link href="src/css/jquery.mobile.structure-1.1.0.css" rel="stylesheet">
+        <link href="src/css/jquery.mobile.theme-1.1.0.css" rel="stylesheet">
+    </head>
+    
+    <body>
+        <div data-role="page" id="page1">
+            <div data-role="header" data-theme="b">
+                <h1>Happy Mates</h1>
+            </div>
+            <div data-role="content">
+                <select data-role="slider" id="source" data-theme="b">
+                    <option value="Yammer">Yammer</option>
+                    <option value="FB">FB</option>
+                </select>
+                <form action="http://" method="POST">
+                    <a data-role="button">Login</a>
+                </form>
+            </div>
+        </div>
+        <div data-role="page" id="page2">
+            <div data-role="header" data-theme="b">
+                <h1>Happy Mates</h1>
+            </div>
+            <div data-role="content">
+                <select data-role="slider" id="source" data-theme="b">
+                    <option value="Yammer">Yammer</option>
+                    <option value="FB">FB</option>
+                </select>
+                <form action="http://" method="POST">
+                    <div data-role="fieldcontain">
+                        <label for="friend"></label>
+                        <input type="text" id="friend" placeholder="Enter a friend's name">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div data-role="page" id="page3">
+            <div data-role="header" data-theme="b">
+                <h1>Happy Mates</h1>
+            </div>
+            <div data-role="content">
+                <select data-role="slider" id="source" data-theme="b">
+                    <option value="Yammer">Yammer</option>
+                    <option value="FB">FB</option>
+                </select>
+                <div class="div-widget">
+                    <span>Ivy Chen's mood</span>
+                </div>
+                <div class="div-widget">
+                    <span>In the past 30 days</span>
+                </div>
+                <img src="" width="600" style="display: block; margin: 0 auto">
+            </div>
+        </div>
+    </body>
+
+</html>
