@@ -42,12 +42,9 @@
                     <option value="Facebook">Facebook</option>
                 </select>
                 <br/> <br/> <br/> <br/> <br/>
-                    <ul id="friend-list" data-role="listview" data-filter="true" data-filter-reveal="true"
-                        data-filter-placeholder="Enter a friend's name" data-inset="true">
-                      <li class="list-item" id=""><a href="#">Ivy Chen</a></li>
-                      <li><a href="#">Kevin Zhao</a></li>
-                      <li><a href="#">Tony Jiang</a></li>
-                    </ul>
+                <ul id="friend-list" data-role="listview" data-filter="true" data-filter-reveal="true"
+                    data-filter-placeholder="Enter a friend's name" data-inset="true">
+                </ul>
             </div>
         </div>
         <div data-role="page" id="page3">
@@ -80,11 +77,8 @@
                         url: 'http://localhost:3000/welcome/books.json',
                         type: 'GET',
                         dataType: 'json',
-                        error : function (){ alert('Somthing went wrong !!!'); },
-                        success: function (data) {
-                            // $.each(data, function(i, item) {
-                            //    alert(item.name);
-                            // });
+                        error : function() { alert('Somthing went wrong !!!'); },
+                        success: function(data) {
                             $.each(data, function(index, item) {
                                 $('#friend-list').append('<li class="ui-screen-hidden" id="' + item.user_id +
                                     '" onclick="submit_user_id(this)">' + item.name + '</li>');
@@ -98,7 +92,23 @@
                 // this is where the user types a name
                 var input = $(elem).parent().prev().find('input').first();
                 input.val($(elem).html());
+
+                // re-hide the list
                 $("ul li").addClass("ui-screen-hidden");
+
+                // now submit to the server
+                $.ajax({
+                    url: 'http://localhost:3000/messages/' + $(elem).attr("id"),
+                    type: 'GET',
+                    dataType: 'json',
+                    error: function() { alert('Something went wrong in getting happiness numbers!'); },
+                    success: function(data) {
+                        // use the data to render chart here ...
+
+                        // now we go to the third page where the chart is
+                        window.location = '/index.html#page3';
+                    }
+                });
             }
         </script>
     </body>
