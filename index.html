@@ -97,10 +97,8 @@
             function submit_user_id(elem) {
                 // this is where the user types a name
                 var input = $(elem).parent().prev().find('input').first();
-                alert($(elem).html());
-
                 input.val($(elem).html());
-                $("ul li").hide();
+                $("ul li").addClass("ui-screen-hidden");
             }
         </script>
     </body>
