@@ -74,7 +74,7 @@
                     $('#friend-list').empty();
 
                     $.ajax({
-                        url: 'http://localhost:3000/welcome/books.json',
+                        url: 'http://localhost:3000/users/?type=yammer',
                         type: 'GET',
                         dataType: 'json',
                         error : function() { alert('Somthing went wrong !!!'); },
@@ -98,7 +98,7 @@
 
                 // now submit to the server
                 $.ajax({
-                    url: 'http://localhost:3000/messages/' + $(elem).attr("id"),
+                    url: 'http://localhost:3000/users/' + $(elem).attr("id") + '/messages',
                     type: 'GET',
                     dataType: 'json',
                     error: function() { alert('Something went wrong in getting happiness numbers!'); },
