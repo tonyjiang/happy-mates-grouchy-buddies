@@ -2,12 +2,16 @@
 <html>
     
     <head>
-        <title>title</title>
+        <title>Happy or Grouchy?</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="lib/jquery-1.6.4.js"></script>
+        <!--script src="lib/jquery-1.6.4.js"></script>
         <script src="lib/jquery.mobile-1.1.0.js"></script>
         <link href="src/css/jquery.mobile.structure-1.1.0.css" rel="stylesheet">
-        <link href="src/css/jquery.mobile.theme-1.1.0.css" rel="stylesheet">
+        <link href="src/css/jquery.mobile.theme-1.1.0.css" rel="stylesheet"-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <link href="src/css/todo.css" rel="stylesheet">
     </head>
     
     <body>
@@ -15,13 +19,15 @@
             <div data-role="header" data-theme="b">
                 <h1>Happy Mates</h1>
             </div>
+            <br/> <br/>
             <div data-role="content">
-                <select data-role="slider" id="source" data-theme="b">
+                <select data-role="slider" id="source1" data-theme="b">
                     <option value="Yammer">Yammer</option>
-                    <option value="FB">FB</option>
+                    <option value="Facebook">Facebook</option>
                 </select>
+                <br/> <br/> <br/> <br/> <br/>
                 <form action="http://" method="POST">
-                    <a data-role="button">Login</a>
+                    <a href="#page2" id="login" data-role="button">Login</a>
                 </form>
             </div>
         </div>
@@ -29,17 +35,19 @@
             <div data-role="header" data-theme="b">
                 <h1>Happy Mates</h1>
             </div>
+            <br/> <br/>
             <div data-role="content">
-                <select data-role="slider" id="source" data-theme="b">
+                <select data-role="slider" id="source2" data-theme="b">
                     <option value="Yammer">Yammer</option>
-                    <option value="FB">FB</option>
+                    <option value="Facebook">Facebook</option>
                 </select>
-                <form action="http://" method="POST">
-                    <div data-role="fieldcontain">
-                        <label for="friend"></label>
-                        <input type="text" id="friend" placeholder="Enter a friend's name">
-                    </div>
-                </form>
+                <br/> <br/> <br/> <br/> <br/>
+                    <ul id="friend-list" data-role="listview" data-filter="true" data-filter-reveal="true"
+                        data-filter-placeholder="Enter a friend's name" data-inset="true">
+                      <li class="list-item" id=""><a href="#">Ivy Chen</a></li>
+                      <li><a href="#">Kevin Zhao</a></li>
+                      <li><a href="#">Tony Jiang</a></li>
+                    </ul>
             </div>
         </div>
         <div data-role="page" id="page3">
@@ -47,9 +55,9 @@
                 <h1>Happy Mates</h1>
             </div>
             <div data-role="content">
-                <select data-role="slider" id="source" data-theme="b">
+                <select data-role="slider" id="source3" data-theme="b">
                     <option value="Yammer">Yammer</option>
-                    <option value="FB">FB</option>
+                    <option value="Facebook">Facebook</option>
                 </select>
                 <div class="div-widget">
                     <span>Ivy Chen's mood</span>
@@ -60,6 +68,40 @@
                 <img src="" width="600" style="display: block; margin: 0 auto">
             </div>
         </div>
-    </body>
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#login').click(function() {
+                    $('div.ui-slider').width("33%");
+
+                    $('#friend-list').empty();
+
+                    $.ajax({
+                        url: 'http://localhost:3000/welcome/books.json',
+                        type: 'GET',
+                        dataType: 'json',
+                        error : function (){ alert('Somthing went wrong !!!'); },
+                        success: function (data) {
+                            // $.each(data, function(i, item) {
+                            //    alert(item.name);
+                            // });
+                            $.each(data, function(index, item) {
+                                $('#friend-list').append('<li class="ui-screen-hidden" id="' + item.user_id +
+                                    '" onclick="submit_user_id(this)">' + item.name + '</li>');
+                            });
+                        }
+                    });
+                });
+            });
+
+            function submit_user_id(elem) {
+                // this is where the user types a name
+                var input = $(elem).parent().prev().find('input').first();
+                alert($(elem).html());
+
+                input.val($(elem).html());
+                $("ul li").hide();
+            }
+        </script>
+    </body>
 </html>
