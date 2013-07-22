@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
-    <link href="css/todo.css" rel="stylesheet">
+    <link href="stylesheets/todo.css" rel="stylesheet">
 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
@@ -68,66 +68,66 @@
       </div>
     </div>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#login').click(function() {
-                    $('div.ui-slider').width("33%");
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#login').click(function() {
+          $('div.ui-slider').width("33%");
 
-                    $('#friend-list').empty();
+          $('#friend-list').empty();
 
-                    $.ajax({
-                        url: 'http://localhost:3000/users.json',
-                        type: 'GET',
-                        dataType: 'jsonp',
-                        success: function(data) {
-                            $.each(data, function(index, item) {
-                                $('#friend-list').append('<li class="ui-screen-hidden" id="' + item.user_id +
-                                    '" onclick="submit_user_id(this)">' + item.name + '</li>');
-                            });
-                        },
-                        error : function(xhr, ajaxOptions, thrownError) {
-                            alert('Somthing went wrong with users !!!');
-                            alert(xhr.status);
-                            alert(xhr.responseText);
-                        }
-                    });
-                });
+          $.ajax({
+            url: 'http://localhost:3000/users.json',
+            type: 'GET',
+            dataType: 'jsonp',
+            success: function(data) {
+              $.each(data, function(index, item) {
+              $('#friend-list').append('<li class="ui-screen-hidden" id="' + item.user_id +
+                '" onclick="submit_user_id(this)">' + item.name + '</li>');
+              });
+            },
+            error : function(xhr, ajaxOptions, thrownError) {
+              alert('Somthing went wrong with users !!!');
+              alert(xhr.status);
+              alert(xhr.responseText);
+            }
+          });
+        });
+      });
+
+      function submit_user_id(elem) {
+        // this is where the user types a name
+        var input = $(elem).parent().prev().find('input').first();
+        input.val($(elem).html());
+
+        // re-hide the list
+        $("ul li").addClass("ui-screen-hidden");
+
+        // now submit to the server
+        $.ajax({
+          url: 'http://localhost:3000/users/' + $(elem).attr("id") + '/messages.json',
+          type: 'GET',
+          dataType: 'jsonp',
+          error: function(xhr, ajaxOptions, thrownError) {
+            alert('Something went wrong in getting happiness numbers?!'); 
+            alert(xhr.status);
+          },
+          success: function(data) {
+            // use the data to render chart here ...
+            var arr = [];
+
+            $.each(data, function(index, item) {
+              $('#mood-list').append('<li id="' + item.platform_message_id + '">'
+                + item.sum + ' - ' + item.theday + '</li>');
+              arr.push([item.theday, item.sum])
             });
 
-            function submit_user_id(elem) {
-                // this is where the user types a name
-                var input = $(elem).parent().prev().find('input').first();
-                input.val($(elem).html());
+            // alert(arr);
 
-                // re-hide the list
-                $("ul li").addClass("ui-screen-hidden");
-
-                // now submit to the server
-                $.ajax({
-                    url: 'http://localhost:3000/users/' + $(elem).attr("id") + '/messages.json',
-                    type: 'GET',
-                    dataType: 'jsonp',
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert('Something went wrong in getting happiness numbers?!'); 
-                        alert(xhr.status);
-                    },
-                    success: function(data) {
-                        // use the data to render chart here ...
-                        var arr = [];
-
-                        $.each(data, function(index, item) {
-                            $('#mood-list').append('<li id="' + item.platform_message_id + '">'
-                             + item.sum + ' - ' + item.theday + '</li>');
-                            arr.push([item.theday, item.sum])
-                        });
-
-                        // alert(arr);
-
-                        // now we go to the third page where the chart is
-                        window.location = '#page3';
-                    }
-                });
-            }
-        </script>
-    </body>
+            // now we go to the third page where the chart is
+            window.location = '#page3';
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
