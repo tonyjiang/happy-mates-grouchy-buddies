@@ -10,7 +10,8 @@ div.ui-slider {
 }
 
 .ui-widget-content {
-  background: rgb(199,199,199);
+  background: rgb(57,57,57);
+  width: 650px;
 }
 
 table.jqplot-table-legend {
