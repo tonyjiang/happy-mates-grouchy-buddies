@@ -26,7 +26,7 @@
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '612174972140800', // App ID
-          channelUrl : 'http://localhost/channel.html', // Channel File
+          channelUrl : '//happy-or-grumpy.herokuapp.com/channel.html', // Channel File
           status     : true, // check login status
           cookie     : true, // enable cookies to allow the server to access the session
           xfbml      : true  // parse XFBML
@@ -140,7 +140,7 @@
           $('#friend-list').empty();
 
           $.ajax({
-            url: 'http://localhost/friends',
+            url: 'http://happy-or-grumpy.herokuapp.com/friends',
             type: 'GET',
             dataType: 'jsonp',
             success: function(data) {
@@ -169,7 +169,7 @@
 
         // now submit to the server
         $.ajax({
-          url: 'http://localhost:3000/users/' + $(elem).attr("id") + '/messages.json',
+          url: 'http://happy-or-grumpy.herokuapp.com/friends/' + $(elem).attr("id") + '/messages.json',
           type: 'GET',
           dataType: 'jsonp',
           error: function(xhr, ajaxOptions, thrownError) {
